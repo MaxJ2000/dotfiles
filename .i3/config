@@ -12,19 +12,19 @@ font pango:Source Sans Pro 10
 set $mod Mod4
 
 # use these keys for focus, movement, and resize directions
-set $left   j
-set $down   k
-set $up     l
-set $right  semicolon
+set $left   h
+set $down   j
+set $up     k
+set $right  l
 
 # define names for workspaces
 set $ws1    "1:   Terminal "
-set $ws2    "2:   Code "
-set $ws3    "3:   Chromium "
+set $ws2    "2:   Clion "
+set $ws3    "3:   Goland "
 set $ws4    "4:   Files "
-set $ws5    "5:   Documents "
-set $ws6    "6:   Media "
-set $ws7    "7:   Design "
+set $ws5    "5:   Chrome "
+set $ws6    "6:   FrontEnd "
+set $ws7    "7:   ChromeDev "
 set $ws8    "8:   Chat "
 set $ws9    "9:   General "
 set $ws10   "10:   Settings "
@@ -50,13 +50,14 @@ bindsym $mod+Return workspace $ws1; exec --no-startup-id alacritty
 
 # start a program launcher
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'Source Sans Pro-10' -nb '#212121' -sb '#2b83a6' -sf '#ffffff'"
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -dpi 0 -show drun
 
 # switching window with win+tab
-bindsym $mod+Tab exec --no-startup-id rofi -show window
+bindsym $mod+Tab exec --no-startup-id rofi -dpi 0 -show window
+
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+w kill
 
 # change focus
 bindsym $mod+$left  focus left
@@ -83,7 +84,7 @@ bindsym $mod+Shift+Up       move up
 bindsym $mod+Shift+Right    move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+o split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -93,7 +94,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -115,7 +116,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # move focused floating window to the center of all outputs
-bindsym $mod+Shift+h move absolute position center
+bindsym $mod+Shift+g move absolute position center
 
 # move focused floating window to the current position of the cursor
 bindsym $mod+Shift+m move position mouse
@@ -128,6 +129,7 @@ bindsym $mod+Shift+p fullscreen disable; floating enable; resize set 350 px 197 
 
 # shortcut to change window border
 bindsym $mod+t border normal    0
+
 bindsym $mod+y border pixel     1
 bindsym $mod+u border none
 
@@ -144,28 +146,28 @@ bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1  move container to workspace $ws1; workspace $ws1;
+bindsym $mod+Shift+2  move container to workspace $ws2; workspace $ws2;
+bindsym $mod+Shift+3  move container to workspace $ws3; workspace $ws3;
+bindsym $mod+Shift+4  move container to workspace $ws4; workspace $ws4;
+bindsym $mod+Shift+5  move container to workspace $ws5; workspace $ws5;
+bindsym $mod+Shift+6  move container to workspace $ws6; workspace $ws6;
+bindsym $mod+Shift+7  move container to workspace $ws7; workspace $ws7;
+bindsym $mod+Shift+8  move container to workspace $ws8; workspace $ws8;
+bindsym $mod+Shift+9  move container to workspace $ws9; workspace $ws9;
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10;
 
 # shortcut applications
-bindsym $mod+F1                 exec gkamus
-bindsym $mod+F2 workspace $ws2; exec subl
-bindsym $mod+F3 workspace $ws3; exec chromium-browser
+bindsym $mod+F1 workspace $ws1; exec --no-startup-id alacritty
+bindsym $mod+F2 workspace $ws2; exec clion
+bindsym $mod+F3 workspace $ws3; exec goland
 bindsym $mod+F4 workspace $ws4; exec pcmanfm
-bindsym $mod+F5 workspace $ws5; exec evince
-bindsym $mod+F6 workspace $ws6; exec audacious
-bindsym $mod+F7 workspace $ws7; exec gcolor2
+bindsym $mod+F5 workspace $ws5; exec google-chrome-stable %U --proxy-server="http://127.0.0.1:6666"
+bindsym $mod+F6 workspace $ws6;
+bindsym $mod+F7 workspace $ws7;
 bindsym $mod+F8 workspace $ws8; exec telegram
-bindsym $mod+F9 workspace $ws9; exec go-for-it
-bindsym Print                   exec --no-startup-id gnome-screenshot
+bindsym $mod+F9 workspace $ws9; exec
+bindsym $mod+p                   exec --no-startup-id gnome-screenshot
 bindsym $mod+Print              exec --no-startup-id gnome-screenshot -a
 bindsym $mod+Shift+x            exec --no-startup-id i3lock-fancy -f Source-Sans-Pro
 
@@ -205,10 +207,12 @@ mode "  " {
 }
 
 # set specific windows to floating mode
+for_window [instance="guake"]                       floating enable
 for_window [window_role="app"]                      floating enable
 for_window [window_role="pop-up"]                   floating enable
 for_window [window_role="task_dialog"]              floating enable
 for_window [title="Preferences$"]                   floating enable
+for_window [class="Tilda"]                          floating enable
 for_window [class="File-roller"]                    floating enable
 for_window [class="Galculator"]                     floating enable
 for_window [class="Gcolor2"]                        floating enable
@@ -224,12 +228,12 @@ for_window [class="Software-properties-gtk"]        floating enable
 # assign program to workspace
 assign [class="Alacritty"]          → $ws1
 assign [class="terminal"]           → $ws1
-assign [class="Sublime"]            → $ws2
-assign [class="Chromium"]           → $ws3
-assign [class="Firefox"]            → $ws3
-assign [class="Authy"]              → $ws3
-assign [class="File-roller"]        → $ws4
-assign [class="Pcmanfm"]            → $ws4
+# assign [class="Code"]               → $ws2
+# assign [class="Chrome"]             → $ws3
+# assign [class="Firefox"]            → $ws3
+# assign [class="Authy"]              → $ws3
+# assign [class="File-roller"]        → $ws4
+# assign [class="Pcmanfm"]            → $ws4
 assign [class="Evince"]             → $ws5
 assign [class="ghostwriter"]        → $ws5
 assign [class="libreoffice"]        → $ws5
@@ -239,7 +243,7 @@ assign [class="Gimp"]               → $ws7
 assign [class="Inkscape"]           → $ws7
 assign [class="Hexchat"]            → $ws8
 assign [class="Telegram"]           → $ws8
-assign [class="Upwork"]             → $ws8
+assign [class="Tim"]                → $ws8
 assign [class="Galculator"]         → $ws9
 assign [class="Gnome-font-viewer"]  → $ws9
 assign [class="Go-for-it"]          → $ws9
@@ -272,7 +276,8 @@ client.background       #212121
 
 # start i3bar to display a workspace bar
 bar {
-    status_command          i3blocks
+#    status_command i3status --config ~/.i3status.conf
+    status_command          i3blocks -c /home/john/.i3/i3blocks.conf
     bindsym button4         nop
     bindsym button5         nop
     position                bottom
@@ -296,13 +301,18 @@ bar {
 
 # i3-gaps
 smart_gaps on
-gaps inner 8
-gaps outer 2
+gaps inner 4
+gaps outer 0
 
 # startup applications
 exec --no-startup-id xautolock -time 10 -locker "i3lock-fancy -f Source-Sans-Pro"
 exec --no-startup-id nm-applet
 exec --no-startup-id pulseaudio --start
 exec --no-startup-id lxpolkit
-exec --no-startup-id feh --bg-fill ~/Public/desktop/dark_planet_minimalist.png
+exec --no-startup-id feh --bg-fill /home/john/Downloads/Aritim-Light-V5.jpg
 exec --no-startup-id picom
+exec --no-startup-id guake
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id  input set-prop 13 "libinput Accel Speed" 1
+exec /usr/lib/xfce-polkit/xfce-polkit
+exec xmodmap -e "pointer = 1 25 3 4 5 6 7 8 9 10"

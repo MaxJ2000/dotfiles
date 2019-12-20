@@ -1,24 +1,80 @@
-color=#f3f4f5
-separator_block_width=15
-markup=none
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
 
-[volume-pulseaudio]
-command=~/.local/src/i3blocks-contrib/volume-pulseaudio/volume-pulseaudio
+# Global properties
+separator_block_width=15
+command=/usr/lib/i3blocks/$BLOCK_NAME
+align=center
+separator=true
+separator_block_width=40
+markup=pango
+
+# Do make in bandwidth2 folder for this to work
+# [bandwidth]
+# label=⇅
+# command=~/.i3/i3blocks-contrib/bandwidth2/bandwidth2
+# interval=persist
+# markup=pango
+# color=#8CE000
+
+[pomodoro]
+command=python ~/code/i3-pomodoro/pomodoro.py
 interval=1
-signal=10
-LONG_FORMAT="${SYMB}${VOL}%"
-SHORT_FORMAT="${SYMB}${VOL}%"
-DEFAULT_COLOR="#f3f4f5"
-USE_ALSA_NAME=1
+
+[temperature]
+command=~/.i3/i3blocks-contrib/temperature/temperature  --chip 'coretemp-isa-000'
+label=
+interval=10
+color=#4ec2f7
+
+#[china]
+#command=~/.i3/utils/date_with_tz.sh 'Asia/Shanghai'
+#interval=5
+#label=China:
+#color=#ffb64c
+
+# Do this if this block doesn't work
+# sudo apt install sysstat
+[cpu]
+label=CPU
+command=~/.i3/i3blocks-contrib/cpu_usage/cpu_usage
+interval=1
+color=#4ec2f7
 
 [ram]
-command=echo -n '  '; ~/.local/src/i3blocks-contrib/memory/memory | grep -E -o '^[0-9]+.[0-9]G'
-interval=30
+label=⚙
+command=~/.i3/i3blocks-contrib/memory/memory
+interval=10
+color=#8CE000
 
-[disk-home]
-command=echo -n '  '; df -h -l --output='used' "$HOME" | grep -E -o '[0-9]+G'
+# Do this if this block doesn't work
+# sudo apt install acpi
+[battery]
+command=~/.i3/i3blocks-contrib/battery/battery
+label=⚡
 interval=30
+color=#ef6191
 
-[rofi-calendar]
-command=~/.local/bin/rofi-calendar
+[time]
+command=date '+%d %B %r'
 interval=5
+color=#ffb64c

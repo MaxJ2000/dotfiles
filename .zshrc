@@ -1,64 +1,115 @@
-# Themes.
-ZSH_THEME="oxide"
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Case-sensitive completion.
-CASE_SENSITIVE="true"
+# Path to your oh-my-zsh installation.
+export ZSH="/home/john/.oh-my-zsh"
+export newcomerTask="/home/john/Documents/Code/UniqueStudio/Newcomer-task"
+export TimFilerecv="/home/john/.wine/drive_c/users/john/My Documents/Tencent Files/2076336601/FileRecv"
+export winHome="/run/media/john/Windows/Users/iuiui/"
+export PATH="$PATH:/home/john/Applications/docker-credential-pass:/home/john/.gem/ruby/2.6.0/bin"
 
-# Disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
-# Disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# Disable marking untracked files under VCS as dirty.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# History.
-HIST_STAMPS="yyyy-mm-dd"
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-# Plugins.
-plugins=(
-    archive
-    extract
-    git
-)
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-# Environment variables.
-source ~/.exports
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-# Oh My Zsh.
-source ~/.oh-my-zsh/oh-my-zsh.sh
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-# User config.
-source ~/.zsh/setopt.zsh
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-# Aliases.
-source ~/.aliases
-source ~/.aliases_private
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-# Functions.
-source ~/.functions
-source ~/.functions_private
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
-# Tracks your most used directories, based on frecency with z.
-source ~/.zsh/plugins/z/z.sh
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# dircolors.
-if [ -x "$(command -v dircolors)" ]; then
-    eval "$(dircolors -b ~/.dircolors)"
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(web-search colored-man-pages extract command-not-found git cp sudo extract z wd archlinux zsh-autosuggestions zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+export PATH="$PATH:$HOME/.yarn/bin"
+export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias zshconfig="code ~/.zshrc"
+alias ohmyzsh="code ~/.oh-my-zsh"
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
 fi
 
-# fzf key bindings.
-if [ -x "$(command -v fzf)" ]; then
-    source ~/.fzf/shell/key-bindings.zsh
-fi
-
-# Manage SSH with Keychain.
-if [ -x "$(command -v keychain)" ]; then
-    eval "$(keychain --eval --quiet id_rsa_github id_rsa_gitlab)"
-fi
-
-# Base16 Shell.
-if [ -f ~/.local/bin/base16-oxide ]; then
-    source ~/.local/bin/base16-oxide
+if [[ $(ps --no-header -p $PPID -o comm | grep -Ev '^(yakuake|konsole)$') ]]; then
+        for wid in $(xdotool search --pid $PPID); do
+                xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid
+        done
 fi

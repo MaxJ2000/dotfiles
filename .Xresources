@@ -36,3 +36,5 @@
 *color13:      oxide_05_magenta
 *color14:      oxide_06_cyan
 *color15:      oxide_15_bright_white
+
+Xft.dpi: 168
