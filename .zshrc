@@ -3,9 +3,6 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/john/.oh-my-zsh"
-export newcomerTask="/home/john/Documents/Code/UniqueStudio/Newcomer-task"
-export TimFilerecv="/home/john/.wine/drive_c/users/john/My Documents/Tencent Files/2076336601/FileRecv"
-export winHome="/run/media/john/Windows/Users/iuiui/"
 export PATH="$PATH:/home/john/Applications/docker-credential-pass:/home/john/.gem/ruby/2.6.0/bin"
 
 # POWERLEVEL9K_MODE='awesome-fontconfig'

@@ -313,6 +313,6 @@ exec --no-startup-id feh --bg-fill /home/john/Downloads/Aritim-Light-V5.jpg
 exec --no-startup-id picom
 exec --no-startup-id guake
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id  input set-prop 13 "libinput Accel Speed" 1
+exec --no-startup-id xinput set-prop 13 "libinput Accel Speed" 1
 exec /usr/lib/xfce-polkit/xfce-polkit
 exec xmodmap -e "pointer = 1 25 3 4 5 6 7 8 9 10"
